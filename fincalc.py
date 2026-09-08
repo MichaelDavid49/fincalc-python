@@ -28,14 +28,34 @@ def calcular_aposentadoria(
     return saldo
 
 
+def calcular_irrf(salario_bruto: float) -> float:
+    """Calcula a alíquota simplificada de Imposto de Renda Retido na Fonte."""
+    if salario_bruto <= 2259.20:
+        return 0.0
+    elif salario_bruto <= 2826.65:
+        return (salario_bruto * 0.075) - 169.44
+    elif salario_bruto <= 3751.05:
+        return (salario_bruto * 0.15) - 381.44
+    else:
+        return (salario_bruto * 0.225) - 662.77
+
+
 if __name__ == "__main__":
     print("Iniciando o sistema FinCalc...")
 
-    montante = calcular_juros_simples(1000.0, 5.0, 2)
-    print(f"Juros Simples (R$ 1.000 a 5% por 2 anos): R$ {montante:.2f}")
+    # Teste de Juros Simples
+    montante_s = calcular_juros_simples(1000.0, 5.0, 2)
+    print(f"Juros Simples: R$ {montante_s:.2f}")
 
-    montante_comp = calcular_juros_compostos(1000.0, 5.0, 2)
-    print(f"Juros Compostos (R$ 1.000 a 5% por 2 anos): R$ {montante_comp:.2f}")
+    # Teste de Juros Compostos
+    montante_c = calcular_juros_compostos(1000.0, 5.0, 2)
+    print(f"Juros Compostos: R$ {montante_c:.2f}")
 
+    # Teste de Aposentadoria
     patrimonio = calcular_aposentadoria(10000.0, 500.0, 20, 6.0)
     print(f"Patrimônio Estimado para Aposentadoria: R$ {patrimonio:.2f}")
+
+    # Teste de IRRF (Aluno 2 - Wanderson)
+    salario_teste = 3000.0
+    irrf = calcular_irrf(salario_teste)
+    print(f"IRRF (Salário R$ {salario_teste:.2f}): R$ {irrf:.2f}")
