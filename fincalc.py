@@ -28,6 +28,15 @@ def calcular_aposentadoria(
     return saldo
 
 
+def calcular_depreciacao_linear(
+    valor_inicial: float,
+    valor_residual: float,
+    vida_util_anos: int
+) -> float:
+    """Calcula o valor de depreciação anual de um ativo corporativo."""
+    return (valor_inicial - valor_residual) / vida_util_anos
+
+
 if __name__ == "__main__":
     print("Iniciando o sistema FinCalc...")
 
@@ -39,3 +48,6 @@ if __name__ == "__main__":
 
     patrimonio = calcular_aposentadoria(10000.0, 500.0, 20, 6.0)
     print(f"Patrimônio Estimado para Aposentadoria: R$ {patrimonio:.2f}")
+
+    depreciacao = calcular_depreciacao_linear(10000.0, 2000.0, 4)
+    print(f"Depreciação Linear Anual: R$ {depreciacao:.2f}")
