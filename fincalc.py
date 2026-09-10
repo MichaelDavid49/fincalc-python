@@ -35,6 +35,8 @@ def calcular_depreciacao_linear(
 ) -> float:
     """Calcula o valor de depreciação anual de um ativo corporativo."""
     return (valor_inicial - valor_residual) / vida_util_anos
+
+
 def calcular_irrf(salario_bruto: float) -> float:
     """Calcula a alíquota simplificada de Imposto de Renda Retido na Fonte."""
     if salario_bruto <= 2259.20:
