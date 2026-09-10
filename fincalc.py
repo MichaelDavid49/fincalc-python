@@ -40,6 +40,14 @@ def calcular_irrf(salario_bruto: float) -> float:
         return (salario_bruto * 0.225) - 662.77
 
 
+def calcular_rendimento_real(ganho_nominal: float, inflacao: float) -> float:
+    """Calcula a taxa de retorno real descontada a inflação do período."""
+    retorno_real = (
+        (1 + (ganho_nominal / 100)) / (1 + (inflacao / 100))
+    ) - 1
+    return retorno_real * 100
+
+
 if __name__ == "__main__":
     print("Iniciando o sistema FinCalc...")
 
@@ -59,3 +67,7 @@ if __name__ == "__main__":
     salario_teste = 3000.0
     irrf = calcular_irrf(salario_teste)
     print(f"IRRF (Salário R$ {salario_teste:.2f}): R$ {irrf:.2f}")
+
+    # Teste de Rendimento Real
+    rendimento_real = calcular_rendimento_real(10.0, 4.0)
+    print(f"Rendimento Real (ganho de 10% e inflação de 4%): {rendimento_real:.2f}%")
