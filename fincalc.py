@@ -96,6 +96,15 @@ def calcular_financiamento(
     return tabela
 
 
+def calcular_depreciacao_linear(
+    valor_inicial: float,
+    valor_residual: float,
+    vida_util_anos: int
+) -> float:
+    """Calcula o valor de depreciação anual de um ativo corporativo."""
+    return (valor_inicial - valor_residual) / vida_util_anos
+
+
 if __name__ == "__main__":
     print("Iniciando o sistema FinCalc...")
 
@@ -130,3 +139,6 @@ if __name__ == "__main__":
         "Financiamento Price "
         f"(R$ 10.000 em 12 parcelas): R$ {primeira_parcela['prestacao']:.2f}"
     )
+
+    depreciacao = calcular_depreciacao_linear(10000.0, 2000.0, 4)
+    print(f"Depreciação Linear Anual: R$ {depreciacao:.2f}")
