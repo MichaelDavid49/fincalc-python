@@ -36,6 +36,48 @@ def calcular_rendimento_real(ganho_nominal: float, inflacao: float) -> float:
     return retorno_real * 100
 
 
+def calcular_financiamento(
+    valor_financiado: float,
+    taxa_mensal: float,
+    numero_parcelas: int,
+) -> list[dict[str, float]]:
+    """Gera a tabela de amortização de um financiamento pelo sistema Price."""
+    if valor_financiado <= 0:
+        raise ValueError("O valor financiado deve ser maior que zero.")
+    if taxa_mensal < 0:
+        raise ValueError("A taxa mensal não pode ser negativa.")
+    if numero_parcelas <= 0:
+        raise ValueError("O número de parcelas deve ser maior que zero.")
+
+    taxa_decimal = taxa_mensal / 100
+    if taxa_decimal == 0:
+        prestacao = valor_financiado / numero_parcelas
+    else:
+        fator = (1 + taxa_decimal) ** numero_parcelas
+        prestacao = valor_financiado * taxa_decimal * fator / (fator - 1)
+
+    saldo_devedor = valor_financiado
+    tabela = []
+
+    for numero in range(1, numero_parcelas + 1):
+        juros = saldo_devedor * taxa_decimal
+        amortizacao = prestacao - juros
+        novo_saldo = max(0.0, saldo_devedor - amortizacao)
+
+        tabela.append(
+            {
+                "parcela": float(numero),
+                "prestacao": round(prestacao, 2),
+                "juros": round(juros, 2),
+                "amortizacao": round(amortizacao, 2),
+                "saldo_devedor": round(novo_saldo, 2),
+            }
+        )
+        saldo_devedor = novo_saldo
+
+    return tabela
+
+
 if __name__ == "__main__":
     print("Iniciando o sistema FinCalc...")
 
@@ -50,3 +92,10 @@ if __name__ == "__main__":
 
     rendimento_real = calcular_rendimento_real(10.0, 4.0)
     print(f"Rendimento Real (ganho de 10% e inflação de 4%): {rendimento_real:.2f}%")
+
+    financiamento = calcular_financiamento(10000.0, 1.0, 12)
+    primeira_parcela = financiamento[0]
+    print(
+        "Financiamento Price "
+        f"(R$ 10.000 em 12 parcelas): R$ {primeira_parcela['prestacao']:.2f}"
+    )
