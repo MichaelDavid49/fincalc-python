@@ -28,6 +28,14 @@ def calcular_aposentadoria(
     return saldo
 
 
+def calcular_rendimento_real(ganho_nominal: float, inflacao: float) -> float:
+    """Calcula a taxa de retorno real descontada a inflação do período."""
+    retorno_real = (
+        (1 + (ganho_nominal / 100)) / (1 + (inflacao / 100))
+    ) - 1
+    return retorno_real * 100
+
+
 if __name__ == "__main__":
     print("Iniciando o sistema FinCalc...")
 
@@ -39,3 +47,6 @@ if __name__ == "__main__":
 
     patrimonio = calcular_aposentadoria(10000.0, 500.0, 20, 6.0)
     print(f"Patrimônio Estimado para Aposentadoria: R$ {patrimonio:.2f}")
+
+    rendimento_real = calcular_rendimento_real(10.0, 4.0)
+    print(f"Rendimento Real (ganho de 10% e inflação de 4%): {rendimento_real:.2f}%")
