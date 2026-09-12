@@ -48,6 +48,11 @@ def calcular_rendimento_real(ganho_nominal: float, inflacao: float) -> float:
     return retorno_real * 100
 
 
+def converter_taxa_anual_para_mensal(taxa_anual: float) -> float:
+    """Converte uma taxa de juros anual equivalente para taxa mensal."""
+    return (((1 + (taxa_anual / 100)) ** (1/12)) - 1) * 100
+
+
 if __name__ == "__main__":
     print("Iniciando o sistema FinCalc...")
 
@@ -71,3 +76,8 @@ if __name__ == "__main__":
     # Teste de Rendimento Real
     rendimento_real = calcular_rendimento_real(10.0, 4.0)
     print(f"Rendimento Real (ganho de 10% e inflação de 4%): {rendimento_real:.2f}%")
+
+    # Teste de Conversão de Taxa de Juros - Aluno 6 - Sabrina
+    taxa_anual = 12.0
+    taxa_mensal = converter_taxa_anual_para_mensal(taxa_anual)
+    print(f"Taxa anual de {taxa_anual:.2f}% equivale a {taxa_mensal:.2f}% ao mês")
