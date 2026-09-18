@@ -48,6 +48,12 @@ def calcular_rendimento_real(ganho_nominal: float, inflacao: float) -> float:
     return retorno_real * 100
 
 
+def calcular_margem_liquida(receita_total: float, custos_totais: float) -> float:
+    """Calcula a margem de lucro líquida percentual de uma operação."""
+    lucro = receita_total - custos_totais
+    return (lucro / receita_total) * 100
+
+
 if __name__ == "__main__":
     print("Iniciando o sistema FinCalc...")
 
@@ -71,3 +77,7 @@ if __name__ == "__main__":
     # Teste de Rendimento Real
     rendimento_real = calcular_rendimento_real(10.0, 4.0)
     print(f"Rendimento Real (ganho de 10% e inflação de 4%): {rendimento_real:.2f}%")
+
+    # Teste de Margem Líquida (Aluno 7- Julia )
+    margem = calcular_margem_liquida(10000.0, 7000.0)
+    print(f"Margem Líquida (Receita R$ 10.000, Custos R$ 7.000): {margem:.2f}%")
