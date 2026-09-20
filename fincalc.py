@@ -37,8 +37,6 @@ def calcular_valor_futuro(
     return vf
 
 
-
-
 def calcular_irrf(salario_bruto: float) -> float:
     """Calcula a alíquota simplificada de Imposto de Renda Retido na Fonte."""
     if salario_bruto <= 2259.20:
