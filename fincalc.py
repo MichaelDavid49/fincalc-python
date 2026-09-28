@@ -36,19 +36,6 @@ def calcular_irrf(salario_bruto: float) -> float:
     """Calcula a alíquota simplificada de Imposto de Renda Retido na Fonte."""
     if salario_bruto < 0:
         raise ValueError("O salário bruto não pode ser negativo.")
-def calcular_valor_futuro(
-    aporte_mensal: float, taxa_mensal: float, meses: int
-) -> float:
-    """Calcula o valor futuro acumulado com aportes mensais recorrentes."""
-    i = taxa_mensal / 100
-    vf = aporte_mensal * (((1 + i) ** meses - 1) / i)
-    return vf
-
-
-def calcular_irrf(salario_bruto: float) -> float:
-    """Calcula a alíquota simplificada de Imposto de Renda Retido na Fonte."""
-    if salario_bruto < 0:
-        raise ValueError("O salário bruto não pode ser negativo.")
     if salario_bruto <= 2259.20:
         return 0.0
     elif salario_bruto <= 2826.65:
@@ -60,10 +47,14 @@ def calcular_irrf(salario_bruto: float) -> float:
 
 
 def calcular_valor_futuro(
+    aporte_mensal: float, taxa_mensal: float, meses: int
+) -> float:
+    """Calcula o valor futuro acumulado com aportes mensais recorrentes."""
+    i = taxa_mensal / 100
+    vf = aporte_mensal * (((1 + i) ** meses - 1) / i)
+    return vf
 
 
-<<<<<<< HEAD
-=======
 def calcular_rendimento_real(ganho_nominal: float, inflacao: float) -> float:
     """Calcula a taxa de retorno real descontada a inflação do período."""
     retorno_real = (
@@ -142,7 +133,6 @@ def converter_taxa_anual_para_mensal(taxa_anual: float) -> float:
     return (((1 + (taxa_anual / 100)) ** (1 / 12)) - 1) * 100
 
 
->>>>>>> c838078caacfcc78e68bf56907059bc73e1583be
 if __name__ == "__main__":
     print("Iniciando o sistema FinCalc...")
 
