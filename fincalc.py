@@ -58,13 +58,20 @@ def calcular_valor_futuro(
     return vf
 
 
-def calcular_rendimento_real(ganho_nominal: float, inflacao: float) -> float:
+def calcular_rendimento_real(
+    ganho_nominal: float,
+    inflacao: float
+) -> float:
+    if inflacao <= -100:
+        raise ValueError("A inflação deve ser maior que -100%.")
 
-    """Calcula a taxa de retorno real descontada a inflação do período."""
-    retorno_real = (
-        (1 + (ganho_nominal / 100)) / (1 + (inflacao / 100))
-    ) - 1
-    return retorno_real * 100
+    rendimento_real = (
+        (1 + ganho_nominal / 100)
+        / (1 + inflacao / 100)
+        - 1
+    ) * 100
+
+    return rendimento_real
 
 
 def calcular_margem_liquida(receita_total: float, custos_totais: float) -> float:
