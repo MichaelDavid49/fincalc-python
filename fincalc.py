@@ -71,3 +71,11 @@ if __name__ == "__main__":
     # Teste de Rendimento Real
     rendimento_real = calcular_rendimento_real(10.0, 4.0)
     print(f"Rendimento Real (ganho de 10% e inflação de 4%): {rendimento_real:.2f}%")
+
+
+def calcular_margem_liquida(receita_total: float, custos_totais: float) -> float:
+    if receita_total <= 0:
+        raise ValueError("A receita total deve ser maior que zero.")
+    if custos_totais < 0:
+        raise ValueError("Os custos totais nao podem ser negativos.")
+    return ((receita_total - custos_totais) / receita_total) * 100
