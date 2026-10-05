@@ -46,8 +46,8 @@ def calcular_financiamento(
         raise ValueError("O valor financiado deve ser maior que zero.")
     if taxa_mensal < 0:
         raise ValueError("A taxa mensal não pode ser negativa.")
-    if numero_parcelas <= 0:
-        raise ValueError("O número de parcelas deve ser maior que zero.")
+    if not isinstance(numero_parcelas, int) or numero_parcelas <= 0:
+        raise ValueError("O número de parcelas deve ser um inteiro maior que zero.")
 
     taxa_decimal = taxa_mensal / 100
     if taxa_decimal == 0:
