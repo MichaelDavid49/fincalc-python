@@ -3,6 +3,10 @@
 
 def calcular_juros_simples(capital: float, taxa_anual: float, anos: int) -> float:
     """Calcula o montante final obtido por juros simples."""
+    if capital < 0:
+        raise ValueError("O capital não pode ser negativo.")
+    if anos < 0:
+        raise ValueError("O número de anos não pode ser negativo.")
     juros = capital * (taxa_anual / 100) * anos
     return capital + juros
 
@@ -24,6 +28,10 @@ def calcular_aposentadoria(
     taxa_anual: float,
 ) -> float:
     """Calcula o patrimônio acumulado para aposentadoria."""
+    if aporte_mensal < 0:
+        raise ValueError("O aporte mensal não pode ser negativo.")
+    if anos < 0:
+        raise ValueError("O número de anos não pode ser negativo.")
     meses = anos * 12
     taxa_mensal = (taxa_anual / 100) / 12
     saldo = patrimonio_atual
