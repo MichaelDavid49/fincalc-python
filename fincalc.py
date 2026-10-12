@@ -88,6 +88,31 @@ def calcular_margem_liquida(receita_total: float, custos_totais: float) -> float
     return (lucro / receita_total) * 100
 
 
+def calcular_depreciacao_linear(
+    valor_inicial: float,
+    valor_residual: float,
+    vida_util_anos: int
+) -> float:
+    """Calcula o valor de depreciação anual de um ativo corporativo."""
+    if vida_util_anos <= 0:
+        raise ValueError("A vida útil deve ser maior que zero.")
+
+    if valor_residual > valor_inicial:
+        raise ValueError(
+            "O valor residual não pode ser maior que o valor inicial."
+        )
+
+    return (valor_inicial - valor_residual) / vida_util_anos
+
+
+def converter_taxa_anual_para_mensal(taxa_anual: float) -> float:
+    """Converte uma taxa de juros anual equivalente para taxa mensal."""
+    if taxa_anual < -100:
+        raise ValueError("A taxa anual não pode ser inferior a -100%.")
+
+    return (((1 + (taxa_anual / 100)) ** (1 / 12)) - 1) * 100
+
+
 def calcular_financiamento(
     valor_financiado: float,
     taxa_mensal: float,
@@ -98,8 +123,8 @@ def calcular_financiamento(
         raise ValueError("O valor financiado deve ser maior que zero.")
     if taxa_mensal < 0:
         raise ValueError("A taxa mensal não pode ser negativa.")
-    if numero_parcelas <= 0:
-        raise ValueError("O número de parcelas deve ser maior que zero.")
+    if not isinstance(numero_parcelas, int) or numero_parcelas <= 0:
+        raise ValueError("O número de parcelas deve ser um inteiro maior que zero.")
 
     taxa_decimal = taxa_mensal / 100
     if taxa_decimal == 0:
@@ -128,31 +153,6 @@ def calcular_financiamento(
         saldo_devedor = novo_saldo
 
     return tabela
-
-
-def calcular_depreciacao_linear(
-    valor_inicial: float,
-    valor_residual: float,
-    vida_util_anos: int
-) -> float:
-    """Calcula o valor de depreciação anual de um ativo corporativo."""
-    if vida_util_anos <= 0:
-        raise ValueError("A vida útil deve ser maior que zero.")
-
-    if valor_residual > valor_inicial:
-        raise ValueError(
-            "O valor residual não pode ser maior que o valor inicial."
-        )
-
-    return (valor_inicial - valor_residual) / vida_util_anos
-
-
-def converter_taxa_anual_para_mensal(taxa_anual: float) -> float:
-    """Converte uma taxa de juros anual equivalente para taxa mensal."""
-    if taxa_anual < -100:
-        raise ValueError("A taxa anual não pode ser inferior a -100%.")
-
-    return (((1 + (taxa_anual / 100)) ** (1 / 12)) - 1) * 100
 
 
 if __name__ == "__main__":
@@ -208,3 +208,10 @@ def calcular_margem_liquida(receita_total: float, custos_totais: float) -> float
     if custos_totais < 0:
         raise ValueError("Os custos totais nao podem ser negativos.")
     return ((receita_total - custos_totais) / receita_total) * 100
+
+    financiamento = calcular_financiamento(10000.0, 1.0, 12)
+    primeira_parcela = financiamento[0]
+    print(
+        "Financiamento Price "
+        f"(R$ 10.000 em 12 parcelas): R$ {primeira_parcela['prestacao']:.2f}"
+    )
